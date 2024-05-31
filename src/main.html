@@ -1,0 +1,67 @@
+<h1>{{ name }}!</h1>
+
+<div *ngFor="let theme of mainThemes; let i = index">
+  <h2>{{ theme }}</h2>
+  <div *ngFor="let subTheme of subThemes[theme]">
+    <h3>{{ subTheme }}</h3>
+    <ng-container *ngIf="!isStyle(tokens[theme][subTheme])">
+      <table style="width: 100%">
+        <tbody>
+          <ng-container
+            *ngTemplateOutlet="renderTokens; context: { tokens: tokens[theme][subTheme] }"
+          ></ng-container>
+        </tbody>
+      </table>
+    </ng-container>
+    <ng-container *ngIf="isStyle(tokens[theme][subTheme])">
+      <div
+        class="test-element"
+        [ngStyle]="convertToCssStyle(tokens[theme][subTheme])"
+      >
+        <span> Test Element </span>
+        <p>{{ convertToCssStyle(tokens[theme][subTheme]) | json }}</p>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #renderTokens let-tokens="tokens">
+  <ng-container *ngFor="let token of objectToArray(tokens)">
+    <ng-container *ngIf="isToken(token.key); else subCategory">
+      <ng-container *ngIf="token.data.type == 'color'; else otherToken">
+        <tr>
+          <td><i>{{ token.key }}</i></td>
+          <td
+            style="width: 60px"
+            [style.backgroundColor]="isPath(token.data.value) ? getValueByDynamicPath(token.data.value) : token.data.value"
+            [attr.title]="token.data.value"
+          ></td>
+        </tr>
+      </ng-container>
+      <ng-template #otherToken>
+        <tr>
+          <td>{{ token.key }}</td>
+          <td style="width: 60px" [attr.title]="token.data.type">
+            {{ token.data.value }}
+          </td>
+        </tr>
+      </ng-template>
+    </ng-container>
+    <ng-template #subCategory>
+      <caption>
+        <h4>{{ token.key }}</h4>
+      </caption>
+      <ng-container *ngIf="isStyle(token.data);">
+        <div class="test-element" [ngStyle]="convertToCssStyle(token.data)">
+          <span> Test Element </span>
+          <p>{{ convertToCssStyle(token.data) | json }}</p>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!isStyle(token.data);">
+        <ng-container
+          *ngTemplateOutlet="renderTokens; context: { tokens: token.data }"
+        ></ng-container>
+      </ng-container>
+    </ng-template>
+  </ng-container>
+</ng-template>
