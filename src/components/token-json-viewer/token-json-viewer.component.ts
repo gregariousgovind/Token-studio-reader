@@ -6,6 +6,7 @@ import { SearchPipe } from '../../search.pipe';
 
 interface Token {
   value: any;
+  tokenType: string;
   type: string;
   path?: string;
   name?: string;
@@ -50,7 +51,7 @@ export class TokenJSONViewerComponent implements OnInit {
           ...data[key],
           path: path ? `${path}.${key}` : key,
           name: key,
-          type: 'style'
+          tokenType: 'style'
         };
         tokens.push(style);
       } else if (typeof data[key] === 'object' && !data[key].value) {
@@ -62,7 +63,7 @@ export class TokenJSONViewerComponent implements OnInit {
           ...data[key],
           path: path ? `${path}.${key}` : key,
           name: key,
-          type: 'token'
+          tokenType: 'token'
         };
         tokens.push(token);
       }
