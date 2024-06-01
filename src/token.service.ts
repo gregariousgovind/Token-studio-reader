@@ -6700,13 +6700,11 @@ export class TokenService {
     this.loadAndCategorizeTokens();
   }
 
+  public getTokens() {
+    return tokens;
+  }
+
   private loadAndCategorizeTokens() {
-    // this.http
-    //   .get<{ [key: string]: any }>('/assets/tokens.json')
-    //   .pipe(map((data) => this.categorizeTokens(data)))
-    //   .subscribe((categorizedData) => {
-    //     this.categorizedTokens = categorizedData;
-    //   });
     this.categorizedTokens = this.categorizeTokens(tokens);
   }
 
