@@ -1,8 +1,9 @@
 body {
+  height: 100vh;
+  width: 100vw;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   margin: 0;
   background-color: #ffffff;
-  overflow-x: hidden;
 }
 
 * {
@@ -36,10 +37,15 @@ nav a:focus {
   text-decoration: underline;
 }
 
+token-viewer {
+  overflow: auto;
+  padding: 16px;
+}
+
 token-viewer,
 token-json-viewer {
   display: block;
-  padding: 16px;
+  height: calc(100% - 50px);
 }
 
 h1,
@@ -83,9 +89,16 @@ div#token-container {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  height: calc(100% - 66px);
+  padding: 16px;
+  overflow: auto;
 }
 
-input {
+token-json-viewer input {
+  position: sticky;
+  top: 66px;
+  width: calc(100% - 32px);
+  margin: 16px;
   padding: 8px 16px;
 }
 
@@ -121,6 +134,7 @@ input {
 
 .property {
   margin: 5px 0;
+  overflow: hidden;
 }
 
 .property span {

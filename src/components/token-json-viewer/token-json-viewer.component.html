@@ -1,5 +1,5 @@
+<input type="text" [(ngModel)]="searchText" placeholder="Search Tokens">
 <div id="token-container">
-    <input type="text" [(ngModel)]="searchText" placeholder="Search Tokens">
     <div *ngFor="let token of tokens | search: searchText : 'path'; let i = index;" class="token {{token.type === 'style' ? 'style' : token.type === 'token' ? 'type' : ''}}" attr.data-index="{{i + 1}}">
         <div class="property" *ngIf="token.type"><span>Type:</span> {{ token.type }}</div>
         <div class="property" *ngIf="token.name"><span>Name:</span> {{ token.name }}</div>
