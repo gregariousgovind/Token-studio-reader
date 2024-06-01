@@ -89,7 +89,7 @@ div#token-container {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  height: calc(100% - 66px);
+  height: calc(100% - 70px);
   padding: 16px;
   overflow: auto;
 }
