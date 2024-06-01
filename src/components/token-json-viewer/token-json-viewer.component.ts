@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../../token.service';
 
 interface Token {
@@ -16,34 +16,7 @@ interface Token {
   standalone: true,
   imports: [CommonModule],
   providers: [TokenService],
-  template: `
-  <div id="token-container">
-    <div *ngFor="let token of tokens" [innerHTML]="createTokenHtml(token)"></div>
-  </div>
-  `,
-  styles: `
-  .token {
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    padding: 10px;
-  }
-  
-  .token.style {
-    background-color: #f9f9f9;
-  }
-  
-  .token.type {
-    background-color: #eef;
-  }
-  
-  .property {
-    margin: 5px 0;
-  }
-  
-  .property span {
-    font-weight: bold;
-  }
-  `
+  templateUrl: './token-json-viewer.component.html'
 })
 export class TokenJSONViewerComponent implements OnInit {
   jsonData: any;
@@ -81,7 +54,7 @@ export class TokenJSONViewerComponent implements OnInit {
         tokens = tokens.concat(
           this.extractTokens(data[key], path ? `${path}.${key}` : key)
         );
-      } else {
+      } else if (this.isToken(key)) {
         const token: Token = {
           ...data[key],
           path: path ? `${path}.${key}` : key,
@@ -92,19 +65,5 @@ export class TokenJSONViewerComponent implements OnInit {
       }
     }
     return tokens;
-  }
-
-  createTokenHtml(token: Token): string {
-    const tokenClass = token.type === 'style' ? 'style' : 'type';
-    return `
-      <div class="token ${tokenClass}">
-          <div class="property"><span>Name:</span> ${token.name}</div>
-          <div class="property"><span>Path:</span> ${token.path}</div>
-          <div class="property"><span>Value:</span> ${token.value}</div>
-          <div class="property"><span>Type:</span> ${token.type}</div>
-          <div class="property"><span>Parent:</span> ${token.parent}</div>
-          <div class="property"><span>Description:</span> ${token.description}</div>
-      </div>
-    `;
   }
 }
