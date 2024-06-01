@@ -1,6 +1,6 @@
 <div id="token-container">
-    <h1>Tokens JSON : {{ tokens.length }}</h1>
     <input type="text" [(ngModel)]="searchText" placeholder="Search">
+    <h1>Tokens JSON Total : {{ tokens.length }}</h1>
     <div *ngFor="let token of tokens | search: searchText : 'name'; let i = index;" class="token {{token.type === 'style' ? 'style' : token.type === 'token' ? 'type' : ''}}" attr.data-index="{{i + 1}}">
         <div class="property" *ngIf="token.type"><span>Type:</span> {{ token.type }}</div>
         <div class="property" *ngIf="token.name"><span>Name:</span> {{ token.name }}</div>

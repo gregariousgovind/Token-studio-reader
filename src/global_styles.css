@@ -85,6 +85,10 @@ div#token-container {
   gap: 8px;
 }
 
+input {
+  padding: 8px 16px;
+}
+
 .token {
   position: relative;
   box-shadow: 2px 2px 4px 2px #ddd;
