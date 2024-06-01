@@ -1,14 +1,13 @@
-
 <div id="token-container">
-    <div *ngFor="let token of tokens">
-        <div class="token {{token.type === 'style' ? 'style' : token.type === 'token' ? 'type' : ''}}">
-            <div class="property" *ngIf="token.type"><span>Type:</span> {{ token.type }}</div>
-            <div class="property" *ngIf="token.name"><span>Name:</span> {{ token.name }}</div>
-            <div class="property" *ngIf="token.path"><span>Path:</span> {{ token.path }}</div>
-            <div class="property" *ngIf="token.type !== 'style' && token.value"><span>Value:</span> {{ token.value }}</div>
-            <div class="property" *ngIf="token.type === 'style' && token.value"><span>Value:</span> {{ token.value | json }}</div>
-            <div class="property" *ngIf="token.parent"><span>Parent:</span> {{ token.parent }}</div>
-            <div class="property" *ngIf="token.description"><span>Description:</span> {{ token.description }}</div>
-        </div>
+    <h1>Tokens JSON : {{ tokens.length }}</h1>
+    <input type="text" [(ngModel)]="searchText" placeholder="Search">
+    <div *ngFor="let token of tokens | search: searchText : 'name'; let i = index;" class="token {{token.type === 'style' ? 'style' : token.type === 'token' ? 'type' : ''}}" attr.data-index="{{i + 1}}">
+        <div class="property" *ngIf="token.type"><span>Type:</span> {{ token.type }}</div>
+        <div class="property" *ngIf="token.name"><span>Name:</span> {{ token.name }}</div>
+        <div class="property" *ngIf="token.path"><span>Path:</span> {{ token.path }}</div>
+        <div class="property" *ngIf="token.type !== 'style' && token.value"><span>Value:</span> {{ token.value }}</div>
+        <div class="property" *ngIf="token.type === 'style' && token.value"><span>Value:</span> {{ token.value | json }}</div>
+        <div class="property" *ngIf="token.parent"><span>Parent:</span> {{ token.parent }}</div>
+        <div class="property" *ngIf="token.description"><span>Description:</span> {{ token.description }}</div>
     </div>
 </div>

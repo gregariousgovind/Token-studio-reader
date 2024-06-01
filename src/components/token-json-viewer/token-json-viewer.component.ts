@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TokenService } from '../../token.service';
+import { FormsModule } from '@angular/forms';
+import { SearchPipe } from '../../search.pipe';
 
 interface Token {
   value: any;
@@ -14,13 +16,14 @@ interface Token {
 @Component({
   selector: 'token-json-viewer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, SearchPipe],
   providers: [TokenService],
   templateUrl: './token-json-viewer.component.html'
 })
 export class TokenJSONViewerComponent implements OnInit {
   jsonData: any;
   tokens: Token[] = [];
+  searchText: string = '';
 
   constructor(private tokenService: TokenService) {
     this.jsonData = this.tokenService.getTokens();
