@@ -5,12 +5,12 @@
         <div class="property" *ngIf="token.name"><span>Name:</span> {{ token.name }}</div>
         <div class="property" *ngIf="token.description"><span>Description:</span> {{ token.description }}</div>
         <div class="property" *ngIf="token.type"><span>Type:</span> {{ token.type }}</div>
-        <div class="property" *ngIf="token.type !== 'style' && token.value"><span>Value:</span> {{ token.value }}</div>
-        <div class="property" *ngIf="token.type === 'style' && token.value && this.getType(token.value) !== 'object'"><span>Value:</span> {{ token.value }}</div>
-        <div class="property" *ngIf="token.type === 'style' && token.value && this.getType(token.value) === 'object'"><span>Value:</span><pre>{{ token.value | json }}</pre></div>
-        <div class="property" *ngIf="token.type !== 'style' && token.placeHolderValue"><span>Placeholder Value:</span> {{ token.placeHolderValue }}</div>
-        <div class="property" *ngIf="token.type === 'style' && token.placeHolderValue && this.getType(token.placeHolderValue) !== 'object'"><span>Placeholder Value:</span> {{ token.placeHolderValue }}</div>
-        <div class="property" *ngIf="token.type === 'style' && token.placeHolderValue && this.getType(token.placeHolderValue) === 'object'"><span>Placeholder Value:</span> <pre>{{ token.placeHolderValue | json }}</pre></div>
+        <div class="property" *ngIf="token.tokenType !== 'style' && token.value"><span>Value:</span> {{ token.value }}</div>
+        <div class="property" *ngIf="token.tokenType === 'style' && token.value && this.getType(token.value) !== 'object'"><span>Value:</span> {{ token.value }}</div>
+        <div class="property" *ngIf="token.tokenType === 'style' && token.value && this.getType(token.value) === 'object'"><span>Value:</span><pre>{{ token.value | json }}</pre></div>
+        <div class="property" *ngIf="token.tokenType !== 'style' && token.placeHolderValue"><span>Placeholder Value:</span> {{ token.placeHolderValue }}</div>
+        <div class="property" *ngIf="token.tokenType === 'style' && token.placeHolderValue && this.getType(token.placeHolderValue) !== 'object'"><span>Placeholder Value:</span> {{ token.placeHolderValue }}</div>
+        <div class="property" *ngIf="token.tokenType === 'style' && token.placeHolderValue && this.getType(token.placeHolderValue) === 'object'"><span>Placeholder Value:</span> <pre>{{ token.placeHolderValue | json }}</pre></div>
         <div class="property" *ngIf="token.path"><span>Path:</span> {{ token.path }}</div>
         <div class="property" *ngIf="token.parent"><span>Parent:</span> {{ token.parent }}</div>
     </div>

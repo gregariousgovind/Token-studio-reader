@@ -6927,7 +6927,10 @@ export class TokenService {
           return undefined;
         }
       }
-      if (temp && temp['value']) return `var(${path.split(".").splice(-1)[0]}, ${temp['value']})`;
+      if (temp && temp['value']) {
+        const tokenKey = path.split(".").splice(-1)[0];
+        return this.isToken(tokenKey) ? `var(${tokenKey}, ${temp['value']})` : temp['value'];
+      }
     }
     return undefined;
   }
