@@ -6766,7 +6766,8 @@ export class TokenService {
           name: key,
           tokenType: 'style'
         };
-        debugger;
+        style.placeHolderValue = style.value;
+        style.value = this.convertToCssStyle({type: style.type, value: style.placeHolderValue});
         tokens.push(style);
       } else if (typeof data[key] === 'object' && !data[key].value) {
         tokens = tokens.concat(
