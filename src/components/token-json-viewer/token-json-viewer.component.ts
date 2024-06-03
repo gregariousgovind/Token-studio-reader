@@ -21,4 +21,8 @@ export class TokenJSONViewerComponent implements OnInit {
   ngOnInit(): void {
     this.tokens = this.tokenService.getTokens();
   }
+  
+  getType(value: any) {
+    return this.tokenService.getType(value);
+  }
 }

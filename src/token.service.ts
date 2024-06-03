@@ -6716,14 +6716,14 @@ export class TokenService {
         for (const subTheme in subThemes) {
           if (subThemes.hasOwnProperty(subTheme)) {
             const tokenGroups = subThemes[subTheme];
-            if (typeof tokenGroups === 'object' && tokenGroups !== null) {
+            if (this.getType(tokenGroups) === 'object' && tokenGroups !== null) {
               categorizedTokens[mainTheme][subTheme] = {};
 
               for (const groupOrToken in tokenGroups) {
                 if (tokenGroups.hasOwnProperty(groupOrToken)) {
                   const tokensOrProperties = tokenGroups[groupOrToken];
                   if (
-                    typeof tokensOrProperties === 'object' &&
+                    this.getType(tokensOrProperties) === 'object' &&
                     tokensOrProperties !== null &&
                     'value' in tokensOrProperties === false
                   ) {
@@ -6766,10 +6766,12 @@ export class TokenService {
           name: key,
           tokenType: 'style'
         };
-        style.placeHolderValue = style.value;
-        style.value = this.convertToCssStyle({type: style.type, value: style.placeHolderValue});
+        if (this.getType(style.value) === 'object') {
+          style.placeHolderValue = style.value;
+          style.value = this.convertToCssStyle({type: style.type, value: style.placeHolderValue});
+        }
         tokens.push(style);
-      } else if (typeof data[key] === 'object' && !data[key].value) {
+      } else if (this.getType(data[key]) === 'object' && !data[key].value) {
         tokens = tokens.concat(
           this.extractTokens(data[key], path ? `${path}.${key}` : key)
         );
@@ -6847,7 +6849,7 @@ export class TokenService {
       }
     };
 
-    if (typeof style.value === 'string') {
+    if (this.getType(style.value) === 'string') {
       switch (style.type) {
         case 'fontFamilies':
           cssStyle['font-family'] = style.value;
@@ -6918,7 +6920,7 @@ export class TokenService {
     for (let theme of $metadata.tokenSetOrder) {
       let temp = this.categorizedTokens[theme];
       for (let key of keys) {
-        if (temp && typeof temp === 'object') {
+        if (temp && this.getType(temp) === 'object') {
           temp = temp[key];
           if (!temp) break;
         } else {
@@ -6928,5 +6930,9 @@ export class TokenService {
       if (temp && temp['value']) return `var(${path.split(".").splice(-1)[0]}, ${temp['value']})`;
     }
     return undefined;
+  }
+
+  getType(value: any) {
+    return typeof value;
   }
 }
