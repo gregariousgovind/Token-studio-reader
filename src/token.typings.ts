@@ -1,5 +1,6 @@
 export interface Token {
     value: any;
+    placeHolderValue: any;
     tokenType: string;
     type: string;
     path?: string;

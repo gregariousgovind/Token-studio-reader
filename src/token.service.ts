@@ -6766,6 +6766,7 @@ export class TokenService {
           name: key,
           tokenType: 'style'
         };
+        debugger;
         tokens.push(style);
       } else if (typeof data[key] === 'object' && !data[key].value) {
         tokens = tokens.concat(
@@ -6778,6 +6779,10 @@ export class TokenService {
           name: key,
           tokenType: 'token'
         };
+        if (this.isPath(token.value)) {
+          token.placeHolderValue = token.value;
+          token.value = this.getValueByDynamicPath(token.placeHolderValue);
+        }
         tokens.push(token);
       }
     }
@@ -6791,7 +6796,7 @@ export class TokenService {
   objectToArray(obj: { [key: string]: any }): any[] {
     return Object.keys(obj).map((key) => ({ key, data: obj[key] }));
   }
-  
+
   isToken(key: string): boolean {
     return key.startsWith('--');
   }
@@ -6907,7 +6912,8 @@ export class TokenService {
   }
 
   getValueByDynamicPath(path: string) {
-    const keys = path.replace(/[{}]/g, '').split('.');
+    path = path.replace(/[{}]/g, '');
+    const keys = path.split('.');
     for (let theme of $metadata.tokenSetOrder) {
       let temp = this.categorizedTokens[theme];
       for (let key of keys) {
@@ -6918,7 +6924,7 @@ export class TokenService {
           return undefined;
         }
       }
-      if (temp && temp['value']) return temp['value'];
+      if (temp && temp['value']) return `var(${path.split(".").splice(-1)[0]}, ${temp['value']})`;
     }
     return undefined;
   }

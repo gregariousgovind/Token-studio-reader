@@ -7,6 +7,8 @@
         <div class="property" *ngIf="token.type"><span>Type:</span> {{ token.type }}</div>
         <div class="property" *ngIf="token.type !== 'style' && token.value"><span>Value:</span> {{ token.value }}</div>
         <div class="property" *ngIf="token.type === 'style' && token.value"><span>Value:</span> {{ token.value | json }}</div>
+        <div class="property" *ngIf="token.type !== 'style' && token.placeHolderValue"><span>Placeholder Value:</span> {{ token.placeHolderValue }}</div>
+        <div class="property" *ngIf="token.type === 'style' && token.placeHolderValue"><span>Placeholder Value:</span> {{ token.placeHolderValue | json }}</div>
         <div class="property" *ngIf="token.path"><span>Path:</span> {{ token.path }}</div>
         <div class="property" *ngIf="token.parent"><span>Parent:</span> {{ token.parent }}</div>
     </div>
