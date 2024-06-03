@@ -19,7 +19,7 @@
         [ngStyle]="convertToCssStyle(tokens[theme][subTheme])"
       >
         <span> Test Element </span>
-        <p>{{ convertToCssStyle(tokens[theme][subTheme]) | json }}</p>
+        <pre>{{ convertToCssStyle(tokens[theme][subTheme]) | json }}</pre>
       </div>
     </ng-container>
   </div>
@@ -54,7 +54,7 @@
       <ng-container *ngIf="isStyle(token.data);">
         <div class="test-element" [ngStyle]="convertToCssStyle(token.data)">
           <span> Test Element </span>
-          <p>{{ convertToCssStyle(token.data) | json }}</p>
+          <pre>{{ convertToCssStyle(token.data) | json }}</pre>
         </div>
       </ng-container>
       <ng-container *ngIf="!isStyle(token.data);">
